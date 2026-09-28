@@ -31,7 +31,7 @@ h1 {
     width: 100%;
 }
 
-input {
+input, select {
     margin-left: 10px;
 }
 
@@ -78,4 +78,8 @@ form button:hover {
 
 #move-book[aria-hidden="true"] {
     display: none;
+}
+
+#remove-book {
+    background-color: red;
 }

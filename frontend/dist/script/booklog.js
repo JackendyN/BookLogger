@@ -1,27 +1,7 @@
 import { changeResetVisibility } from "./booklist.js";
+import { getBooks } from "./storagemanager.js";
+import { getCover } from "./coverstorage.js";
 let bookArray = [];
-export const getBooks = () => {
-    const books = localStorage.getItem("local-books");
-    if (!books)
-        return [];
-    const parsedBooks = JSON.parse(books) || [];
-    // Converting date objects
-    parsedBooks.forEach((book) => {
-        if (book.obtained === "bought") {
-            book["date-bought"] = new Date(book["date-bought"]);
-        }
-        else {
-            book["date-borrowed"] = new Date(book["date-borrowed"]);
-            if (book["date-returned"]) {
-                book["date-returned"] = new Date(book["date-returned"]);
-            }
-            if (book["date-due"]) {
-                book["date-due"] = new Date(book["date-due"]);
-            }
-        }
-    });
-    return parsedBooks;
-};
 document.addEventListener("DOMContentLoaded", () => {
     changeResetVisibility("hide");
     bookArray = getBooks();
@@ -170,7 +150,7 @@ const renderBooks = (books) => {
         return;
     bookContainer.innerHTML = "";
     let bookYears = [];
-    books.forEach((book) => {
+    books.forEach(async (book) => {
         if (sortMethod === "chronological") {
             const bookYear = book.obtained === "borrowed"
                 ? book["date-borrowed"].getFullYear()
@@ -188,12 +168,15 @@ const renderBooks = (books) => {
         const listing = document.createElement("div");
         listing.className = "book-listing";
         if (book.cover) {
-            listing.innerHTML += `
-                <img class="book-cover" 
-                src="${book.cover}"
-                alt="Book Cover"
-                tabindex="0">
-            `;
+            const coverUrl = await getCover(book.cover);
+            if (coverUrl) {
+                listing.innerHTML += `
+                    <img class="book-cover"
+                    src="${coverUrl}"
+                    alt="Book Cover"
+                    tabindex="0">
+                `;
+            }
         }
         else {
             listing.style.gridTemplateColumns = "1fr 1fr";

@@ -1,4 +1,5 @@
-import { getBooks } from "./booklog.js";
+import { getBooks } from "./storagemanager.js";
+import { getCover } from "./coverstorage.js";
 const logOutButton = document.getElementById("log-out");
 logOutButton?.addEventListener("click", (e) => {
     e.preventDefault();
@@ -21,15 +22,22 @@ document.addEventListener("DOMContentLoaded", () => {
     bookContainer.innerHTML = currentBooks.length > 1 ?
         "<h2>Current Book(s):</h2>"
         : "<h2>Current Book:</h2>";
-    currentBooks.forEach((book) => {
+    if (currentBooks.length === 0) {
+        bookContainer.innerHTML = "";
+    }
+    currentBooks.forEach(async (book) => {
         const bookListing = document.createElement("div");
         bookListing.className = "book";
         if (book.cover) {
-            bookListing.innerHTML += `
-                <img class="book-cover" 
-                src="${book.cover}"
-                alt="Book Cover">
-            `;
+            const coverUrl = await getCover(book.cover);
+            if (coverUrl) {
+                bookListing.innerHTML += `
+                        <img class="book-cover"
+                        src="${coverUrl}"
+                        alt="Book Cover"
+                        tabindex="0">
+                    `;
+            }
         }
         bookListing.innerHTML += `
             <h3><span class="bold">${book["book-name"]}</span></h3>
