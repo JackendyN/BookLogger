@@ -1,5 +1,6 @@
 import {  FutureBook } from "./bookinterfaces.js";
 import { changeResetVisibility } from "./booklist.js";
+import { getCover } from "./coverstorage.js";
 
 let bookArray: FutureBook[] = [];
 export const getFutureBooks = (): FutureBook[] => {
@@ -82,16 +83,19 @@ const renderBooks = (books: FutureBook[]) => {
     if (!bookContainer) return;
     bookContainer.innerHTML = "";
 
-    books.forEach((book) => {
+    books.forEach(async (book) => {
         const listing = document.createElement("div");
         listing.className = "book-listing";
         if (book.cover) {
-            listing.innerHTML += `
-                <img class="book-cover" 
-                src="${book.cover}"
-                alt="Book Cover"
-                tabindex="0">
-            `;
+            const coverUrl = await getCover(book.cover);
+                if (coverUrl) {
+                    listing.innerHTML += `
+                        <img class="book-cover"
+                        src="${coverUrl}"
+                        alt="Book Cover"
+                        tabindex="0">
+                    `;
+                }
         } else {
             listing.style.gridTemplateColumns = "1fr 1fr";
         }

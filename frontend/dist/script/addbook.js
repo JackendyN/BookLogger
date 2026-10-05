@@ -1,6 +1,6 @@
 import { addBook } from "./storagemanager.js";
 document.getElementById("back")?.addEventListener("click", () => {
-    window.location.href = "home.html";
+    window.location.href = "books.html";
 });
 const hideInputs = (elements) => {
     elements.forEach((element) => {

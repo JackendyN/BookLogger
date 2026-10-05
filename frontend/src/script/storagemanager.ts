@@ -35,3 +35,15 @@ export const addBook = (book: AnyBook) => {
     currentBooks.push(book);
     localStorage.setItem("local-books", JSON.stringify(currentBooks));
 }
+
+export const addFutureBook = (book: FutureBook) => {
+    let books = localStorage.getItem("future-local-books");
+    let currentBooks;
+    if(books) {
+        currentBooks = JSON.parse(books)
+    } else {
+        currentBooks = [];
+    }
+    currentBooks.push(book);
+    localStorage.setItem("future-local-books", JSON.stringify(currentBooks));
+}

@@ -54,14 +54,14 @@ const applyFilters = (books) => {
         newBooks = newBooks.filter((book) => {
             if (book.obtained === "borrowed") {
                 return Object.hasOwn(currentFilters, "month")
-                    ? book["date-borrowed"].getFullYear() === currentFilters.year
-                        && book["date-borrowed"].getMonth() + 1 === currentFilters.month
+                    ? book["date-borrowed"].getUTCFullYear() === currentFilters.year
+                        && book["date-borrowed"].getUTCMonth() + 1 === currentFilters.month
                     : book["date-borrowed"].getFullYear() === currentFilters.year;
             }
             else {
                 return Object.hasOwn(currentFilters, "month")
-                    ? book["date-bought"].getFullYear() === currentFilters.year
-                        && book["date-bought"].getMonth() + 1 === currentFilters.month
+                    ? book["date-bought"].getUTCFullYear() === currentFilters.year
+                        && book["date-bought"].getUTCMonth() + 1 === currentFilters.month
                     : book["date-bought"].getFullYear() === currentFilters.year;
             }
         });
