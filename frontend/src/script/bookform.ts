@@ -1,7 +1,29 @@
 import { saveCover } from "./coverstorage.js";
 
+export const hideInputs = (elements: HTMLLabelElement[]): void => {
+    elements.forEach((element) => {
+        element.hidden = true;
+        element.setAttribute("aria-hidden", "true");
+        const nextInput = element.querySelector("input");
+        if(nextInput) {
+            nextInput.disabled = true;
+        }
+    });
+}
+
+export const showInputs = (elements: HTMLLabelElement[]): void => {
+    elements.forEach((element) => {
+        element.hidden = false;
+        element.setAttribute("aria-hidden", "false");
+        const nextInput = element.querySelector("input");
+        if(nextInput) {
+            nextInput.disabled = false;
+        }
+    });
+}
+
 const imageInput = document.getElementById("cover") as HTMLInputElement;
-imageInput.addEventListener("change", async () => {
+imageInput?.addEventListener("change", async () => {
     const imageFile = imageInput.files?.[0];
     if(!imageFile) return;
     if(!imageFile.type.startsWith("image/")) {
@@ -19,5 +41,6 @@ imageInput.addEventListener("change", async () => {
 });
 
 document.getElementById("back")?.addEventListener("click", () => {
-    window.location.href = "home.html"
+    window.location.href = "home.html";
+    // Should delete current image here since it is not submitted
 });

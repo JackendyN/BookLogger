@@ -44,7 +44,7 @@ input:not(input[type="file"]), select {
     height: auto;
 }
 
-form button {
+form button, #remove-book {
     display: block;
     margin: 40px auto;
     background-color: #5170ff;
@@ -82,4 +82,9 @@ form button:hover {
 
 #remove-book {
     background-color: red;
+}
+
+#remove-book:hover {
+    cursor: pointer;
+    background-color: #d90012;
 }

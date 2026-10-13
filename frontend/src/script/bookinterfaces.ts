@@ -1,4 +1,5 @@
 export interface Book {
+    "book-id": number;
     "book-name": string;
     "author-name": string;
     reading: boolean;
@@ -21,6 +22,7 @@ export interface BorrowedBook extends Book {
 }
 
 export interface FutureBook {
+    "book-id": number;
     "book-name": string;
     "author-name": string;
     cover?: string;

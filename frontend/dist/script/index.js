@@ -8,8 +8,3 @@ const loginButtons = Array.from(document.querySelectorAll('#login-form button:no
 loginButtons.forEach((button) => {
     button.addEventListener("click", (e) => e.preventDefault());
 });
-// Temporarily wipes storage each load
-document.addEventListener("DOMContentLoaded", () => {
-    window.localStorage.setItem("local-books", "");
-    window.localStorage.setItem("future-local-books", "");
-});

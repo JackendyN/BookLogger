@@ -159,7 +159,7 @@ filterResetButton?.addEventListener("click", () => {
 });
 
 let sortMethod = "chronological";
-const renderBooks = (books: AnyBook[]) => {
+const renderBooks = async (books: AnyBook[]) => {
     books = applyFilters(books);
     books.sort(sortMethod === "chronological" ? compareDates : compareLetters);
     const bookContainer = document.getElementById("book-container");
@@ -167,7 +167,7 @@ const renderBooks = (books: AnyBook[]) => {
     bookContainer.innerHTML = "";
 
     let bookYears: Number[] = [];
-    books.forEach(async (book) => {
+    for(const book of books) {
         if (sortMethod === "chronological") {
             const bookYear =
                 book.obtained === "borrowed"
@@ -205,6 +205,7 @@ const renderBooks = (books: AnyBook[]) => {
                 <h4>by <span class="bold">${book["author-name"]}</span></h4>
             </div>
         `;
+
         if (book.obtained === "borrowed") {
             listing.innerHTML += `
                 <div class="when-obtained">
@@ -221,17 +222,12 @@ const renderBooks = (books: AnyBook[]) => {
                 </div>
             `;
         }
-
         bookContainer.appendChild(listing);
-        const bookCovers = Array.from(
-            document.querySelectorAll(".book-cover, .book-name"),
-        );
-        bookCovers.forEach((cover) =>
-            cover.addEventListener("click", () => {
-                window.location.href = "updatebook.html";
-            })
-        );
-    });
+        Array.from(listing.querySelectorAll(".book-cover, .book-name"))
+            .forEach((cover) => cover.addEventListener("click", () => {
+                window.location.href = `updatebook.html?id=${book["book-id"]}`;
+            }));
+    }
 };
 
 document.getElementById("add-book")?.addEventListener("click", () => {

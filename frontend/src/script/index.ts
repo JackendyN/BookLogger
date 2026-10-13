@@ -10,9 +10,3 @@ const loginButtons = Array.from(
 loginButtons.forEach((button: HTMLButtonElement) => {
     button.addEventListener("click", (e) => e.preventDefault());
 })
-
-// Temporarily wipes storage each load
-document.addEventListener("DOMContentLoaded", () => {
-    window.localStorage.setItem("local-books", ""); 
-    window.localStorage.setItem("future-local-books", "");
-})

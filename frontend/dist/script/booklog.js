@@ -142,7 +142,7 @@ filterResetButton?.addEventListener("click", () => {
     renderBooks(bookArray);
 });
 let sortMethod = "chronological";
-const renderBooks = (books) => {
+const renderBooks = async (books) => {
     books = applyFilters(books);
     books.sort(sortMethod === "chronological" ? compareDates : compareLetters);
     const bookContainer = document.getElementById("book-container");
@@ -150,7 +150,7 @@ const renderBooks = (books) => {
         return;
     bookContainer.innerHTML = "";
     let bookYears = [];
-    books.forEach(async (book) => {
+    for (const book of books) {
         if (sortMethod === "chronological") {
             const bookYear = book.obtained === "borrowed"
                 ? book["date-borrowed"].getFullYear()
@@ -205,11 +205,11 @@ const renderBooks = (books) => {
             `;
         }
         bookContainer.appendChild(listing);
-        const bookCovers = Array.from(document.querySelectorAll(".book-cover, .book-name"));
-        bookCovers.forEach((cover) => cover.addEventListener("click", () => {
-            window.location.href = "updatebook.html";
+        Array.from(listing.querySelectorAll(".book-cover, .book-name"))
+            .forEach((cover) => cover.addEventListener("click", () => {
+            window.location.href = `updatebook.html?id=${book["book-id"]}`;
         }));
-    });
+    }
 };
 document.getElementById("add-book")?.addEventListener("click", () => {
     window.location.href = "newbook.html";

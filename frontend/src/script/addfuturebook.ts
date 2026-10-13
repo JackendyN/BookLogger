@@ -1,5 +1,5 @@
 import { FutureBook } from "./bookinterfaces";
-import { addFutureBook } from "./storagemanager.js";
+import { addFutureBook, nextID } from "./storagemanager.js";
 
 document.getElementById("back")?.addEventListener("click", () => {
     window.location.href = "wishlist.html";
@@ -12,9 +12,10 @@ futureBookForm?.addEventListener("submit", (e: Event) => {
     const coverId = (
         document.getElementById("cover") as HTMLInputElement
     ).dataset.coverId;
-    let obtained = formData.get("obtaining")?.toString();
+    let obtained = formData.get("obtained")?.toString();
     const location = formData.get("location");
     const newFutureBook: FutureBook = {
+        "book-id": nextID(1),
         "book-name": formData.get("book-name")?.toString() || "",
         "author-name": formData.get("author-name")?.toString() || "",
         cover: coverId,

@@ -1,27 +1,8 @@
-import { addBook } from "./storagemanager.js";
+import { addBook, nextID } from "./storagemanager.js";
+import { hideInputs, showInputs } from "./bookform.js";
 document.getElementById("back")?.addEventListener("click", () => {
     window.location.href = "books.html";
 });
-const hideInputs = (elements) => {
-    elements.forEach((element) => {
-        element.hidden = true;
-        element.setAttribute("aria-hidden", "true");
-        const nextInput = element.querySelector("input");
-        if (nextInput) {
-            nextInput.disabled = true;
-        }
-    });
-};
-const showInputs = (elements) => {
-    elements.forEach((element) => {
-        element.hidden = false;
-        element.setAttribute("aria-hidden", "false");
-        const nextInput = element.querySelector("input");
-        if (nextInput) {
-            nextInput.disabled = false;
-        }
-    });
-};
 const obtainSelect = document.getElementById("obtain-select");
 const borrowedValues = document.getElementById("borrowed-values");
 const boughtValues = document.getElementById("bought-values");
@@ -74,6 +55,7 @@ bookForm?.addEventListener("submit", (e) => {
             bookInformation.borrowedFrom = borrowedFrom;
         }
         newBook = {
+            "book-id": nextID(0),
             "book-name": bookInformation.name || "",
             "author-name": bookInformation.author || "",
             reading: bookInformation.isReading || false,
@@ -93,6 +75,7 @@ bookForm?.addEventListener("submit", (e) => {
             bookInformation.boughtFrom = boughtFrom;
         }
         newBook = {
+            "book-id": nextID(0),
             "book-name": bookInformation.name || "",
             "author-name": bookInformation.author || "",
             reading: bookInformation.isReading || false,

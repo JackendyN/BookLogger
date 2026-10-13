@@ -1,13 +1,7 @@
+import { getFutureBooks } from "./storagemanager.js";
 import { changeResetVisibility } from "./booklist.js";
 import { getCover } from "./coverstorage.js";
 let bookArray = [];
-export const getFutureBooks = () => {
-    const books = localStorage.getItem("future-local-books");
-    if (!books)
-        return [];
-    const parsedBooks = JSON.parse(books) || [];
-    return parsedBooks;
-};
 let currentFilters = {
     borrowing: true,
     owning: true
