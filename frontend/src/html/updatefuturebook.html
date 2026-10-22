@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Update Future Book - Book Logger</title>
+        <meta name="description" content="Web application for logging books read and wishlisted books.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="../css/bookform.css">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Alice" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+        <link rel="manifest" href="../../assets/site.webmanifest">
+    </head>
+    <body>
+        <button id="back">←</button>
+        <h1><span class="bold">Update Future Book</span></h1>
+
+        <form id="future-update-form" method="POST">
+
+            <div id="main-section">
+                <label for="book-name">Book Name:
+                    <input required type="text" id="book-name" name="book-name">
+                </label>
+                <label for="author-name">Author:
+                    <input required type="text" id="author-name" name="author-name">
+                </label>
+                <label for="cover">Cover Image (OPTIONAL):
+                    <input type="file" accept="image/*" id="cover" name="cover">
+                </label>
+                <img id="cover-preview" src="">
+
+                <label for="location">Location From (OPTIONAL):
+                    <input type="text" name="location" id="location">
+                </label>
+            </div>
+
+            <button type="submit">Update Book</button>
+        </form>
+        <button id="remove-book">REMOVE BOOK</button>
+
+        <script type="module" src="../../dist/script/bookform.js" defer></script>
+        <script type="module" src="../../dist/script/updatefuturebook.js" defer></script>
+    </body>
+</html>

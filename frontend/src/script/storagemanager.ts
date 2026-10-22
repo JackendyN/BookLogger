@@ -89,6 +89,6 @@ export const updateFutureBook = (id: Number, updatedBook: FutureBook): boolean =
     const currentBookIndex = bookArray.indexOf(currentBook);
     if(currentBookIndex === -1) return false;
     bookArray.splice(currentBookIndex, 1, updatedBook);
-    localStorage.setItem("local-books", JSON.stringify(bookArray));
+    localStorage.setItem("future-local-books", JSON.stringify(bookArray));
     return true;
 }

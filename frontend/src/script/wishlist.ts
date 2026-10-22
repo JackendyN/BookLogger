@@ -117,11 +117,11 @@ const renderBooks = (books: FutureBook[]) => {
 
         bookContainer.appendChild(listing);
         const bookCovers = Array.from(
-            document.querySelectorAll(".book-cover, .book-name"),
+            listing.querySelectorAll(".book-cover, .book-name"),
         );
         bookCovers.forEach((cover) =>
             cover.addEventListener("click", () => {
-                window.location.href = "updatebook.html";
+                window.location.href = `updatefuturebook.html?id=${book["book-id"]}`;
             })
         );
     });

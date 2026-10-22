@@ -41,6 +41,16 @@ imageInput?.addEventListener("change", async () => {
 });
 
 document.getElementById("back")?.addEventListener("click", () => {
-    window.location.href = "home.html";
+    if(window.location.href.includes("newbook.html") 
+        || window.location.href.includes("updatebook.html")) {
+        window.location.href = "books.html";
+    } else if(window.location.href.includes("newfuturebook.html") 
+        || window.location.href.includes("updatefuturebook.html")) {
+        window.location.href = "wishlist.html";
+    } else {
+        window.location.href = "home.html";
+    }
+
     // Should delete current image here since it is not submitted
+    
 });

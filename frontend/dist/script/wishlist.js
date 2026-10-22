@@ -104,9 +104,9 @@ const renderBooks = (books) => {
             `;
         }
         bookContainer.appendChild(listing);
-        const bookCovers = Array.from(document.querySelectorAll(".book-cover, .book-name"));
+        const bookCovers = Array.from(listing.querySelectorAll(".book-cover, .book-name"));
         bookCovers.forEach((cover) => cover.addEventListener("click", () => {
-            window.location.href = "updatebook.html";
+            window.location.href = `updatefuturebook.html?id=${book["book-id"]}`;
         }));
     });
 };
