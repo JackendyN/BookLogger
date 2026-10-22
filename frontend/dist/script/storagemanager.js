@@ -90,3 +90,27 @@ export const updateFutureBook = (id, updatedBook) => {
     localStorage.setItem("future-local-books", JSON.stringify(bookArray));
     return true;
 };
+export const deleteBook = (id) => {
+    const bookArray = getBooks();
+    const currentBook = bookArray.find((book) => book["book-id"] === id);
+    if (!currentBook)
+        return false;
+    const currentBookIndex = bookArray.indexOf(currentBook);
+    if (currentBookIndex === -1)
+        return false;
+    bookArray.splice(currentBookIndex, 1);
+    localStorage.setItem("local-books", JSON.stringify(bookArray));
+    return true;
+};
+export const deleteFutureBook = (id) => {
+    const bookArray = getFutureBooks();
+    const currentBook = bookArray.find((book) => book["book-id"] === id);
+    if (!currentBook)
+        return false;
+    const currentBookIndex = bookArray.indexOf(currentBook);
+    if (currentBookIndex === -1)
+        return false;
+    bookArray.splice(currentBookIndex, 1);
+    localStorage.setItem("future-local-books", JSON.stringify(bookArray));
+    return true;
+};

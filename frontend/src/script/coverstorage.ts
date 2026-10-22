@@ -17,10 +17,7 @@ function openDatabase(): Promise<IDBDatabase> {
     });
 }
 
-export async function saveCover(
-    coverId: string,
-    imageFile: File
-): Promise<void> {
+export const saveCover = async (coverId: string, imageFile: File): Promise<void> => {
     const db = await openDatabase();
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(STORE_NAME, "readwrite");
@@ -39,9 +36,7 @@ export async function saveCover(
     });
 }
 
-export async function getCover(
-    coverId: string
-): Promise<string | null> {
+export const getCover = async (coverId: string): Promise<string | null> => {
     const db = await openDatabase();
 
     return new Promise((resolve, reject) => {
@@ -67,6 +62,18 @@ export async function getCover(
     });
 }
 
-export async function deleteCover() {
-    // Implement with book deletion
+export const deleteCover = async (coverId: string): Promise<boolean> => {
+    const db = await openDatabase();
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(STORE_NAME, "readwrite");
+        const request = transaction.objectStore(STORE_NAME).delete(coverId);
+        request.onsuccess = () => {
+            db.close();
+            resolve(true);
+        };
+        request.onerror = () => {
+            db.close;
+            resolve(false);
+        }
+    });
 }

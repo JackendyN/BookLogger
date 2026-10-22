@@ -1,5 +1,5 @@
-import { getBookByID, updateBook } from "./storagemanager.js";
-import { getCover } from "./coverstorage.js";
+import { getBookByID, updateBook, deleteBook } from "./storagemanager.js";
+import { getCover, deleteCover } from "./coverstorage.js";
 import { hideInputs, showInputs } from "./bookform.js";
 let bookId;
 document.addEventListener("DOMContentLoaded", async () => {
@@ -106,6 +106,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         else {
             alert("Something went wrong. Please try again.");
+        }
+    });
+    const removeButton = document.getElementById("remove-book");
+    removeButton?.addEventListener("click", async () => {
+        if (window.confirm("Are you SURE you want to remove this book?")) {
+            if (deleteBook(bookId)) {
+                if (bookUpdating.cover) {
+                    if (await deleteCover(bookUpdating.cover)) {
+                        console.log("Cover has also been deleted.");
+                    }
+                    else {
+                        console.log("Cover could not be deleted.");
+                    }
+                }
+                alert(`${bookUpdating["book-name"]} has been removed.`);
+                window.location.href = "books.html";
+            }
+            else {
+                alert("Something went wrong. The book was not deleted.");
+            }
         }
     });
 });

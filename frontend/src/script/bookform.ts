@@ -1,4 +1,4 @@
-import { saveCover } from "./coverstorage.js";
+import { saveCover, deleteCover } from "./coverstorage.js";
 
 export const hideInputs = (elements: HTMLLabelElement[]): void => {
     elements.forEach((element) => {
@@ -40,7 +40,11 @@ imageInput?.addEventListener("change", async () => {
     imageInput.dataset.coverId = coverId;
 });
 
-document.getElementById("back")?.addEventListener("click", () => {
+document.getElementById("back")?.addEventListener("click", async () => {
+    if(imageInput.dataset.coverId) {
+        await deleteCover(imageInput.dataset.coverId);
+    }
+
     if(window.location.href.includes("newbook.html") 
         || window.location.href.includes("updatebook.html")) {
         window.location.href = "books.html";
@@ -50,7 +54,5 @@ document.getElementById("back")?.addEventListener("click", () => {
     } else {
         window.location.href = "home.html";
     }
-
-    // Should delete current image here since it is not submitted
     
 });
